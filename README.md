@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.svg" alt="Agent Essential Skills" width="100%">
+  <img src="docs/banner.png" alt="Agent Essential Skills" width="100%">
 </p>
 
 <p align="center">
