@@ -122,3 +122,5 @@ All bundled tools belong to their upstream maintainers — thank you to those pr
 
 [MIT](LICENSE) for this bundle’s scripts and documentation.  
 Upstream tools keep their own licenses.
+
+<!-- public metadata: GitHub noreply authorship only -->
