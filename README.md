@@ -35,12 +35,23 @@ You  →  install.sh  →  Skills + MCP + CLIs  →  Agent with real context
 ```bash
 git clone https://github.com/DrSalmanAfridi/Agent-Essential-Skills.git
 cd Agent-Essential-Skills
-bash scripts/install.sh
+bash scripts/install.sh --dry-run   # preview only
+bash scripts/install.sh             # full install
 ```
 
 Then restart Cursor / Claude Code.
 
 Two tools are stronger with a free API key (**Context7**, **Firecrawl**). Everything else works without keys → [docs/KEYS.md](docs/KEYS.md).
+
+### Safety
+
+`scripts/install.sh` edits agent configs (`~/.cursor/mcp.json`, `~/.claude.json`). Before changing a file it writes a timestamped backup next to it (`*.bak-YYYYMMDD-HHMMSS`). Invalid JSON is left untouched. Optional API keys that are not set are omitted (never written as literal `${…}` placeholders).
+
+```bash
+bash scripts/install.sh --dry-run     # show what would happen, change nothing
+bash scripts/install.sh --mcp-only    # only wire MCP servers (no skills/CLIs)
+bash scripts/install.sh               # full install
+```
 
 ---
 
