@@ -1,0 +1,155 @@
+{
+  "name": "agent-essential-skills",
+  "version": "1.0.0",
+  "description": "One install for the 10 open-source tools that give native AI agents real context.",
+  "agents": ["cursor", "claude-code"],
+  "tools": [
+    {
+      "id": "claude-mem",
+      "name": "claude-mem",
+      "repo": "thedotmack/claude-mem",
+      "url": "https://github.com/thedotmack/claude-mem",
+      "kind": ["installer", "plugin"],
+      "why": "Native agents forget everything between sessions. This gives them memory.",
+      "does": "Captures what your agent did, compresses it, and injects useful past context into the next session.",
+      "install": {
+        "command": "npx claude-mem install",
+        "notes": "Interactive installer. Pick Cursor and/or Claude Code when prompted."
+      },
+      "needs_key": false
+    },
+    {
+      "id": "context7",
+      "name": "context7",
+      "repo": "upstash/context7",
+      "url": "https://github.com/upstash/context7",
+      "kind": ["mcp", "skill", "cli"],
+      "why": "Agents guess APIs from stale training data. This feeds them live docs.",
+      "does": "Pulls up-to-date, version-specific library documentation and code examples into the agent.",
+      "install": {
+        "command": "npx ctx7 setup",
+        "mcp": true,
+        "notes": "Setup can install skill and/or MCP. Full use needs a free Context7 API key — see docs/KEYS.md."
+      },
+      "needs_key": true,
+      "key_env": "CONTEXT7_API_KEY"
+    },
+    {
+      "id": "graphify",
+      "name": "graphify",
+      "repo": "Graphify-Labs/graphify",
+      "url": "https://github.com/Graphify-Labs/graphify",
+      "kind": ["cli", "skill"],
+      "why": "Grepping a big codebase burns tokens and still misses structure. A graph is searchable context.",
+      "does": "Turns a codebase into a queryable knowledge graph (query / path / explain) so agents get scoped answers.",
+      "install": {
+        "cli": "uv tool install graphifyy",
+        "skill": "npx skills add Graphify-Labs/graphify -g -a cursor -a claude-code -y",
+        "notes": "After install, run `graphify .` inside a project."
+      },
+      "needs_key": false
+    },
+    {
+      "id": "ponytail",
+      "name": "ponytail",
+      "repo": "DietrichGebert/ponytail",
+      "url": "https://github.com/DietrichGebert/ponytail",
+      "kind": ["skill"],
+      "why": "Agents over-engineer by default. This forces the laziest solution that still works.",
+      "does": "Skill that pushes YAGNI, stdlib-first, fewer dependencies, and minimal diffs.",
+      "install": {
+        "skill": "npx skills add DietrichGebert/ponytail -g -a cursor -a claude-code -y"
+      },
+      "needs_key": false
+    },
+    {
+      "id": "playwright-mcp",
+      "name": "playwright-mcp",
+      "repo": "microsoft/playwright-mcp",
+      "url": "https://github.com/microsoft/playwright-mcp",
+      "kind": ["mcp"],
+      "why": "Without a browser, an agent cannot verify the UI it just built.",
+      "does": "MCP server that lets the agent navigate, click, type, and snapshot pages via Playwright.",
+      "install": {
+        "mcp": true,
+        "command": "npx @playwright/mcp@latest",
+        "notes": "Wired into Cursor and Claude Code MCP config by install.sh."
+      },
+      "needs_key": false
+    },
+    {
+      "id": "superpowers",
+      "name": "superpowers",
+      "repo": "obra/superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "kind": ["skill", "plugin"],
+      "why": "Agents jump straight into code. This makes them brainstorm, plan, test, and review first.",
+      "does": "Composable skills for brainstorming, planning, TDD, subagent execution, and code review.",
+      "install": {
+        "skill": "npx skills add obra/superpowers -g -a cursor -a claude-code -y",
+        "claude_plugin": "/plugin install superpowers@claude-plugins-official",
+        "notes": "Skills path works for Cursor + Claude Code. Claude Code can also use the official plugin."
+      },
+      "needs_key": false
+    },
+    {
+      "id": "repomix",
+      "name": "repomix",
+      "repo": "yamadashy/repomix",
+      "url": "https://github.com/yamadashy/repomix",
+      "kind": ["cli", "skill", "mcp"],
+      "why": "Sometimes you need the whole repo in one AI-friendly file, not a live graph.",
+      "does": "Packs a repository into a single XML/markdown file with token counts, ignores, and optional compression.",
+      "install": {
+        "cli": "npm install -g repomix",
+        "skill": "npx skills add yamadashy/repomix -g -a cursor -a claude-code -y",
+        "notes": "Or run once with `npx repomix@latest`."
+      },
+      "needs_key": false
+    },
+    {
+      "id": "firecrawl",
+      "name": "firecrawl",
+      "repo": "firecrawl/firecrawl",
+      "url": "https://github.com/firecrawl/firecrawl",
+      "kind": ["mcp", "cli", "api"],
+      "why": "Agents are blind to the live web unless you give them a scrape/search tool.",
+      "does": "Search, scrape, and crawl the web into clean markdown/JSON for agents.",
+      "install": {
+        "mcp": true,
+        "notes": "MCP is wired by install.sh. Most features need a Firecrawl API key — see docs/KEYS.md."
+      },
+      "needs_key": true,
+      "key_env": "FIRECRAWL_API_KEY"
+    },
+    {
+      "id": "serena",
+      "name": "serena",
+      "repo": "oraios/serena",
+      "url": "https://github.com/oraios/serena",
+      "kind": ["mcp"],
+      "why": "Raw file search is slow and clumsy in large codebases. Symbol-level tools are how an IDE works.",
+      "does": "MCP server with IDE-like semantic retrieval and editing (find symbol, references, rename) via language servers.",
+      "install": {
+        "cli": "uv tool install -p 3.13 serena-agent",
+        "mcp": true,
+        "notes": "Wired into MCP config by install.sh after the CLI is installed."
+      },
+      "needs_key": false
+    },
+    {
+      "id": "caveman",
+      "name": "caveman",
+      "repo": "JuliusBrussee/caveman",
+      "url": "https://github.com/JuliusBrussee/caveman",
+      "kind": ["skill"],
+      "why": "Agents waste tokens on filler. Shorter prose leaves more room for code and tools.",
+      "does": "Skill that makes the agent answer densely (less hedging and ceremony) while keeping code and errors exact.",
+      "install": {
+        "skill": "npx skills add JuliusBrussee/caveman -g -a cursor -a claude-code -y"
+      },
+      "needs_key": false,
+      "caveat": "Token savings are real on chatty answers; on coding-agent work they are usually much smaller than marketing claims."
+    }
+  ]
+}
